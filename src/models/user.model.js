@@ -1,4 +1,8 @@
 import mongoose, { Schema } from "mongoose";
+import jwt from "jsonwebtoken"
+import bcrypt from "bcrypt"
+import { ENV } from "../constant.js";
+import 'dotenv/config'
 
 const UserSchema = new Schema({
     userName: {
@@ -59,5 +63,37 @@ UserSchema.pre("save", async function (next) {
     this.password = await bcrypt.hashSync(this.password, 10);
     next();
 })
+
+UserSchema.methods.isPasswordCorrect = async function (password) {
+    return await bcrypt.compareSync(password, this.password);
+}
+
+UserSchema.methods.generateAccessToken = function () {
+    return jwt.sign(
+        {
+            _id: this._id,
+            email: this.email,
+            userName: this.userName,
+            fullName: this.fullName
+        },
+        ENV.ACCESS_TOKEN_SECRET,
+        {
+            expiresIn: ENV.ACCESS_TOKEN_EXPIRY
+        }
+    )
+}
+
+UserSchema.methods.generateRefreshToken = function () {
+    return jwt.sign(
+        {
+            _id: this._id,
+        },
+        ENV.REFRESH_TOKEN_SECRET,
+        {
+            expiresIn: ENV.REFRESH_TOKEN_EXPIRY
+        }
+    )
+}
+
 
 export const UserModel = mongoose.model("Users", UserSchema);
