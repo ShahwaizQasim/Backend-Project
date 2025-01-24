@@ -14,8 +14,16 @@ Schema Specific Logic: Har schema apne rules ke saath custom aggregation kar sak
 Maintenance Asaan Ho: Agar aggregation me koi change karna ho, to sirf plugin update karna pade.
 
 
-This keyword in javascript
-// this hamesha apne surrounding context ko refer karta hai.
+This keyword in javascript:
+this hamesha apne surrounding context ko refer karta hai.
 
-// JavaScript me this keyword ka use current context ke object ko refer karne ke liye hota hai. Ye depend karta hai ke this kis jagah
-//  (global, function, object) me use ho raha hai.
+JavaScript me this keyword ka use current context ke object ko refer karne ke liye hota hai. Ye depend karta hai ke this kis jagah
+(global, function, object) me use ho raha hai.
+
+
+Multer:
+Multer ek Node.js middleware hai jo file uploads handle karne ke liye use hota hai. Jab bhi aapko user se files (jaise images, videos, PDFs, etc.) server pe upload karni hoti hain, to multer kaam aata hai.
+
+
+Cloudinary:
+Cloudinary ek cloud-based service hai jo image aur video management ke liye use hoti hai Aapki images aur videos ko Cloudinary ke server pe securely store karta hai. Isse aapko local storage par depend hone ki zarurat nahi hoti.
