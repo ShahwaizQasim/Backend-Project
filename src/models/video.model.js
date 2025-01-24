@@ -41,8 +41,8 @@ const VideoSchema = new Schema({
 )
 
 //1) Conclusion
-// Mongoose aggregation plugin ka use data processing ko efficient, reusable, aur maintainable banane ke liye hota hai.Iska benefit tab aur zyada hota
-// hai jab aap ke paas repetitive queries ya advanced aggregation logic ho jo multiple jagah use hoti hai.
+// Mongoose aggregation plugin ka use hum is liye karte hain taky data processing ko efficient, reusable, aur maintainable banane ke liye hota hai.Iska
+// benefit zyada tab hota hain jab aap ke paas repetitive queries ya advanced aggregation logic ho jo multiple jagah use ho rhi ho.
 
 //2) Mongoose aggregation pipeline ka plugin is liye banate hain takay:
 

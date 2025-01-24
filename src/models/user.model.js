@@ -56,7 +56,7 @@ const UserSchema = new Schema({
 // this hamesha apne surrounding context ko refer karta hai.
 
 // JavaScript me this keyword ka use current context ke object ko refer karne ke liye hota hai. Ye depend karta hai ke this kis jagah
-//  (global, function, object, ya class) me use ho raha hai.
+//  (global, function, object) me use ho raha hai.
 
 UserSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next()
