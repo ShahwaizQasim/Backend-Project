@@ -1,6 +1,7 @@
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser";
+import UserRouter from "./routes/userRoutes.js";
 
 const app = express();
 
@@ -22,5 +23,7 @@ app.use(cookieParser()) // Yeh middleware cookies ko handle karne ke liye use ho
 app.get('/', (req, res) => {
     res.send("hello world")
 })
+
+app.use('/api/users', UserRouter);
 
 export { app };
