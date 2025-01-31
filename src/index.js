@@ -6,15 +6,10 @@ import { app } from "./app.js";
 
 ConnectDB()
     .then(() => {
-        app.listen(ENV.PORT, () => {
+        app.listen(ENV.PORT || 3000, () => {
             console.log("Server Running");
         })
     })
     .catch((err) => {
         console.log(err);
-
     })
-
-app.listen(ENV.PORT, () => {
-    console.log("server is running");
-})

@@ -4,6 +4,6 @@ import { AddUsers } from "./controllers/user.register.js";
 const router = Router();
 
 // router.get('/', GetUsers)
-router.post('/', AddUsers);
+router.post('/register', AddUsers);
 
 export default router;
