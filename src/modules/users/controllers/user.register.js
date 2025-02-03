@@ -1,5 +1,5 @@
+import { uploadOnCloudinary } from "../../../utils/cloudinary.js";
 import { UserModel } from "../models/user.model.js";
-import { uploadOnCloudinary } from "../../utils/cloudinary.js"
 
 const AddUsers = async (req, res) => {
     try {

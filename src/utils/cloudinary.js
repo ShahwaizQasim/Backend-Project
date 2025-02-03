@@ -7,11 +7,11 @@ import 'dotenv/config'
 
 cloudinary.config({
     cloud_name: ENV.CLOUDINARY_CLOUD_NAME,
-    api_key: CLOUDINARY_API_KEY,
-    api_secret: CLOUDINARY_API_SECRET // Click 'View API Keys' above to copy your API secret
+    api_key: ENV.CLOUDINARY_API_KEY,
+    api_secret: ENV.CLOUDINARY_API_SECRET // Click 'View API Keys' above to copy your API secret
 });
 
-const uploadOnCloudinary = async (LocalFilePath) => {
+export const uploadOnCloudinary = async (LocalFilePath) => {
     try {
         if (!LocalFilePath) return null;
         const response = await cloudinary.uploader.upload(LocalFilePath, {
@@ -29,5 +29,3 @@ const uploadOnCloudinary = async (LocalFilePath) => {
 
     }
 }
-
-export { uploadOnCloudinary };
