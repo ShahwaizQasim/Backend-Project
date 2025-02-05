@@ -56,6 +56,34 @@ const LoginUser = async (req, res) => {
     }
 }
 
+const LogoutUser = async (req, res) => {
+    try {
+        await UserModel.findByIdAndUpdate(
+            req.user._id,
+            {
+                $set: {
+                    refreshToken: undefined,
+                }
+            }, {
+            new: true
+        }
+        );
+        const options = {
+            httpOnly: true,
+            secure: true
+        }
+
+        return res
+            .status(200)
+            .clearCookie("AccessToken", options)
+            .clearCookie("RefreshToken", options)
+            .json({ status: 200, msg: "user logout successfully", data: {} })
+    } catch (error) {
+        res.status(400).send({ status: 400, msg: error.message, error: true })
+    }
+}
+
 export {
-    LoginUser
+    LoginUser,
+    LogoutUser
 }
