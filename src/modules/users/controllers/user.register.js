@@ -1,7 +1,7 @@
 import { uploadOnCloudinary } from "../../../utils/cloudinary.js";
 import { UserModel } from "../models/user.model.js";
 
-const AddUsers = async (req, res) => {
+const RegisterUsers = async (req, res) => {
     try {
 
         // get user details from frontend
@@ -27,10 +27,10 @@ const AddUsers = async (req, res) => {
             res.status(400).send({ status: 400, msg: "user with email and userName already exists", error: true })
         }
 
-        console.log("Avatar-File-Path", req.files);
+        // console.log("Avatar-File-Path", req.files);
 
         const avatarLocalPath = req.files?.avatar[0]?.path;
-        console.log("avatarLocalPath", avatarLocalPath);
+        // console.log("avatarLocalPath", avatarLocalPath);
         if (!avatarLocalPath) {
             res.status(400).send({ status: 400, msg: "File is required", error: true })
         }
@@ -70,5 +70,5 @@ const AddUsers = async (req, res) => {
 }
 
 export {
-    AddUsers
+    RegisterUsers
 }
