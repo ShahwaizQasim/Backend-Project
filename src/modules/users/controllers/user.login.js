@@ -1,6 +1,19 @@
 import { UserModel } from "../models/user.model.js";
 import bcrypt from "bcrypt";
 
+const generateAccessAndRefreshToken = async (UserId) => {
+    try {
+        const user = await UserModel.findById(UserId);
+        const AccessToken = user.generateAccessToken();
+        const RefreshToken = user.generateRefreshToken();
+        user.refreshToken = RefreshToken;
+        await user.save({ validateBeforeSave: false })
+        return { AccessToken, RefreshToken }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const LoginUser = async (req, res) => {
     try {
         // req body -> data
@@ -20,8 +33,17 @@ const LoginUser = async (req, res) => {
         if (user) {
             let checkPassword = await user.isPasswordCorrect(password);
             if (checkPassword) {
-                let token = user.generateAccessToken();
-                return res.status(200).send({ status: 200, msg: "user Login successfully", data: user, token })
+                let { AccessToken, RefreshToken } = await generateAccessAndRefreshToken(user._id);
+                let loggedInUser = await UserModel.findById(user._id).select("-password -refreshToken");
+                const options = {
+                    httpOnly: true,
+                    secure: true
+                }
+                return res
+                    .status(200)
+                    .cookie("AccessToken", AccessToken, options)
+                    .cookie("RefreshToken", RefreshToken, options)
+                    .send({ status: 200, msg: "user Login successfully", user: loggedInUser, AccessToken, RefreshToken })
             } else {
                 return res.status(400).send({ status: 400, msg: "Incorrect Password", error: true })
             }
