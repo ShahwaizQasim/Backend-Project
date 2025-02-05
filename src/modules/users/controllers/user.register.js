@@ -26,11 +26,16 @@ const AddUsers = async (req, res) => {
         if (existedUser) {
             res.status(400).send({ status: 400, msg: "user with email and userName already exists", error: true })
         }
-        const avatarLocalPath = await req.files?.avatar[0]?.path;
-        const coverImageLocalPath = await req.files.coverImage[0]?.path;
+
+        console.log("Avatar-File-Path", req.files);
+
+        const avatarLocalPath = req.files?.avatar[0]?.path;
+        console.log("avatarLocalPath", avatarLocalPath);
         if (!avatarLocalPath) {
             res.status(400).send({ status: 400, msg: "File is required", error: true })
         }
+        
+        const coverImageLocalPath = req.files?.coverImage[0]?.path;
         const avatar = await uploadOnCloudinary(avatarLocalPath);
         const coverImage = await uploadOnCloudinary(coverImageLocalPath);
 
@@ -38,7 +43,7 @@ const AddUsers = async (req, res) => {
             res.status(400).send({ status: 400, msg: "File is required", error: true })
         }
 
-        const user = UserModel({
+        const user = await UserModel.create({
             fullName,
             email,
             userName: userName.toLowerCase(),
@@ -48,7 +53,7 @@ const AddUsers = async (req, res) => {
 
         });
 
-        const createdUser = UserModel.findById(user._id).select(
+        const createdUser = await UserModel.findById(user._id).select(
             "-password -refreshToken"
         )
 
